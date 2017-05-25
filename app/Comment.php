@@ -10,4 +10,9 @@ class Comment extends Model
     	return $this->belogsTo(Post::class);
     }
 
+     public function user()
+    {
+    	return $this->belogsTo(User::class);
+    }
+
 }
