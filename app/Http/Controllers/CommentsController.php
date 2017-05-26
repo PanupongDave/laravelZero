@@ -9,9 +9,14 @@ use App\Comment;
 class CommentsController extends Controller
 {
     public function store(Post $post)
-    {
-    	$this->validate(request(), ['body' => 'required|min:2']);
-    	$post->addComment(request('body'));
+    {    $this->validate(request(),['body' => 'required']);
+    	
+    	$comment = Comment::create([
+    		'body' => request('body'),
+    		'post_id' => $post->id,
+    		'user_id' => auth()->user()->id
+    		]);
+     
     	return back();
     }
 }
