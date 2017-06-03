@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Post;
 use Carbon\Carbon;
+use App\Repositories\Posts;
 
 class PostsController extends Controller
 {   
@@ -14,52 +15,42 @@ class PostsController extends Controller
         $this->middleware('auth')->except(['index', 'show']);
     }
     
-    public function index()
+    public function index(Posts $posts)
 
     {
-        $posts = Post::latest();
+        // $posts = Post::latest();
+        
+        $posts = $posts->all();
 
-        if($month = request('month')){
-            $posts->whereMonth('created_at', Carbon::parse($month)->month);
-        }
+        // if($month = request('month')){
+        //     $posts->whereMonth('created_at', Carbon::parse($month)->month);
+        // }
 
-        if($year = request('year')) {
-            $posts->whereYear('created_at', $year);
-        }
-        $posts = $posts->get();
+        // if($year = request('year')) {
+        //     $posts->whereYear('created_at', $year);
+        // }
+        // $posts = $posts->get();
 
 
-        $archives = Post::selectRaw('year(created_at) year, monthname(created_at) month, count(*) published')
-            ->groupBy('year','month')
-            ->orderByRaw('min(created_at) desc')
-            ->get()
-            ->toArray();
+        
 
-    	return view('posts.index', compact('posts', 'archives'));
+    	return view('posts.index', compact('posts'));
 
     }
 
     public function show(Post $post)
 
     {   
-        $archives = Post::selectRaw('year(created_at) year, monthname(created_at) month, count(*) published')
-            ->groupBy('year','month')
-            ->orderByRaw('min(created_at) desc')
-            ->get()
-            ->toArray();
+       
 
-    	return view('posts.show', compact('post','archives'));
+    	return view('posts.show', compact('post'));
 
     }
 
      public function create()
     {
-        $archives = Post::selectRaw('year(created_at) year, monthname(created_at) month, count(*) published')
-            ->groupBy('year','month')
-            ->orderByRaw('min(created_at) desc')
-            ->get()
-            ->toArray();
-    	return view('posts.create', compact('archives'));
+        
+    	return view('posts.create');
 
     }
 
