@@ -9,7 +9,7 @@
 
 			<div class="form-group">
 				<label for="email">Email Address:</label>
-				<input type="email" name="email" id="email" class="form-control">
+				<input type="email" name="email" id="name" class="form-control">
 			</div>
 
 			<div class="form-group">

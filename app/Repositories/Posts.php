@@ -11,12 +11,21 @@ class Posts
 	
 	public function __construct(Redis $redis)
 	{
-		$this->redis = $redis;
+		$this->redis = Post::all();
 	}
 
-	public function all()
+	public static function all()
 	{
 		return Post::all();
 	}
+
+	public static function archives()
+  	{
+  		return Post::selectRaw('year(created_at) year, monthname(created_at) month, count(*) published')
+            ->groupBy('year','month')
+            ->orderByRaw('min(created_at) desc')
+            ->get()
+            ->toArray();
+  	}
 
 }

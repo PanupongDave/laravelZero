@@ -15,26 +15,16 @@ class PostsController extends Controller
         $this->middleware('auth')->except(['index', 'show']);
     }
     
-    public function index(Posts $posts)
+    public function index()
 
     {
         // $posts = Post::latest();
+        $posts = Posts::all();
+       
         
-        $posts = $posts->all();
+        return view('posts.index', compact('posts'));
+    	// return response()->json($posts); //----> return to json
 
-        // if($month = request('month')){
-        //     $posts->whereMonth('created_at', Carbon::parse($month)->month);
-        // }
-
-        // if($year = request('year')) {
-        //     $posts->whereYear('created_at', $year);
-        // }
-        // $posts = $posts->get();
-
-
-        
-
-    	return view('posts.index', compact('posts'));
 
     }
 

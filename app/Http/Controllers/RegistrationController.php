@@ -10,12 +10,8 @@ class RegistrationController extends Controller
 {
     public function create()
     {
-         $archives = Post::selectRaw('year(created_at) year, monthname(created_at) month, count(*) published')
-            ->groupBy('year','month')
-            ->orderByRaw('min(created_at) desc')
-            ->get()
-            ->toArray();
-    	return view('registration.create',compact('archives'));
+    
+    	return view('registration.create');
     }
     public function store()
     {

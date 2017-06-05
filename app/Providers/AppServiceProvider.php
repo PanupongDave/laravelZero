@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+use App\Repositories\Posts;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -14,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         view()->composer('layouts.sidebar', function ($view){
-            $view->with('archives',\App\Post::archives());
+            $view->with('archives',Posts::archives());
         });
     }
 

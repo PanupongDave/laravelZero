@@ -13,12 +13,7 @@ class SessionsController extends Controller
 	}
     public function create()
     {
-         $archives = Post::selectRaw('year(created_at) year, monthname(created_at) month, count(*) published')
-            ->groupBy('year','month')
-            ->orderByRaw('min(created_at) desc')
-            ->get()
-            ->toArray();
-    	return view('sessions.create', compact('archives'));
+    	return view('sessions.create');
     }
     public function destroy()
     {
@@ -27,7 +22,7 @@ class SessionsController extends Controller
     }
     public function store()
     {
-    	if (! auth()->attempt(request(['email','password']))){
+    	if (! auth()->attempt(request(['email','password']))){ //chang email-> name for login username
 
     		return back()->withErrors([
     			'message' => 'Please check your credentials and try again.'
