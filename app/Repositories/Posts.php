@@ -14,9 +14,9 @@ class Posts
 		$this->redis = Post::all();
 	}
 
-	public static function all()
+	public static function latest()
 	{
-		return Post::all();
+		return Post::latest()->get();
 	}
 
 	public static function archives()

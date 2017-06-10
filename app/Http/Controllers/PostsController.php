@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use Carbon\Carbon;
 use App\Repositories\Posts;
+use App\Http\Requests\PostsForm;
 
 class PostsController extends Controller
 {   
@@ -19,7 +20,7 @@ class PostsController extends Controller
 
     {
         // $posts = Post::latest();
-        $posts = Posts::all();
+        $posts = Posts::latest();
        
         
         return view('posts.index', compact('posts'));
@@ -44,23 +45,10 @@ class PostsController extends Controller
 
     }
 
-    public function store()
-
+    public function store(PostsForm $form)
     {
     	// Post::create(request()->all());
-
-        $this->validate(request(),[
-
-            'title' => 'required',
-
-            'body' => 'required'
-
-            ]);
-        auth()->user()->publish(
-            new Post(request(['title', 'body']))
-            );
-
-
+        $form->addPost();
     	return redirect('/');
 
     }

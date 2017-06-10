@@ -2,7 +2,7 @@
 # Introduction
 
 Thanks so much registering!
-
+<h1>Welcome to Laracasts, {{ $user->name }}</h1>
 @component('mail::button', ['url' => 'https://laracasts.com'])
 Start Browsing
 @endcomponent
