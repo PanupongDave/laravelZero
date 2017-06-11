@@ -19,6 +19,7 @@ class PostsController extends Controller
     public function index()
 
     {
+
         // $posts = Post::latest();
         $posts = Posts::latest();
        
@@ -49,6 +50,9 @@ class PostsController extends Controller
     {
     	// Post::create(request()->all());
         $form->addPost();
+
+        session()->flash('message','Your post has now been published');
+
     	return redirect('/');
 
     }
