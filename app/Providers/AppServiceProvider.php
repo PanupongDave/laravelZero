@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 
 use App\Repositories\Posts;
+use App\Tag;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,7 +17,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         view()->composer('layouts.sidebar', function ($view){
-            $view->with('archives',Posts::archives());
+            $archives = Posts::archives();
+            $tags = Tag::has('posts')->pluck('name');
+
+            
+            $view->with(compact('archives','tags'));    
         });
     }
 
